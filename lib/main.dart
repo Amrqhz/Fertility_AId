@@ -1,3 +1,4 @@
+import 'package:fertility_aid/screens/splash_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:fertility_aid/screens/home_screen.dart';
 import 'package:fertility_aid/screens/log_data_screen.dart';
@@ -20,12 +21,13 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: const MainScreen(),
+      home: const SplashScreen2(),
       routes: {
         '/log-data': (context) => const LogDataScreen(),
         '/calendar': (context) => const CalendarScreen(),
         '/history': (context) => const HistoryScreen(),
         '/education': (context) => const EducationScreen(),
+        "/splash": (context) => const SplashScreen2(),
       },
     );
   }

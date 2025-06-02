@@ -25,20 +25,20 @@ class FertilityChart extends StatelessWidget {
     ];
 
     final List<FlSpot> lhSpots = [
-      const FlSpot(1, 0.2),
-      const FlSpot(2, 0.3),
-      const FlSpot(3, 0.2),
-      const FlSpot(4, 0.4),
-      const FlSpot(5, 0.6),
-      const FlSpot(6, 0.8),
-      const FlSpot(7, 1.2),
-      const FlSpot(8, 1.8), // LH surge
-      const FlSpot(9, 0.9),
-      const FlSpot(10, 0.5),
-      const FlSpot(11, 0.3),
-      const FlSpot(12, 0.2),
-      const FlSpot(13, 0.2),
-      const FlSpot(14, 0.1),
+      const FlSpot(1, 97.0), // Scaled LH values to show on same chart
+      const FlSpot(2, 97.05),
+      const FlSpot(3, 97.0),
+      const FlSpot(4, 97.1),
+      const FlSpot(5, 97.2),
+      const FlSpot(6, 97.3),
+      const FlSpot(7, 97.5),
+      const FlSpot(8, 98.4), // LH surge - scaled up to be visible
+      const FlSpot(9, 97.8),
+      const FlSpot(10, 97.4),
+      const FlSpot(11, 97.05),
+      const FlSpot(12, 97.0),
+      const FlSpot(13, 97.0),
+      const FlSpot(14, 96.9),
     ];
 
     return LineChart(
@@ -59,15 +59,15 @@ class FertilityChart extends StatelessWidget {
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
                   child: Text(
-                    value.toStringAsFixed(1),
+                    '${value.toStringAsFixed(1)}°F',
                     style: const TextStyle(
                       fontSize: 10,
-                      color: Colors.blue,
+                      color: Colors.green,
                     ),
                   ),
                 );
               },
-              reservedSize: 40,
+              reservedSize: 50,
             ),
           ),
           topTitles: AxisTitles(
@@ -80,7 +80,7 @@ class FertilityChart extends StatelessWidget {
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
                   child: Text(
-                    value.toInt().toString(),
+                    'Day ${value.toInt()}',
                     style: const TextStyle(
                       fontSize: 10,
                     ),
@@ -98,7 +98,7 @@ class FertilityChart extends StatelessWidget {
                 return SideTitleWidget(
                   axisSide: meta.axisSide,
                   child: Text(
-                    value.toStringAsFixed(1),
+                    '${value.toStringAsFixed(1)}°F',
                     style: const TextStyle(
                       fontSize: 10,
                       color: Colors.green,
@@ -106,7 +106,7 @@ class FertilityChart extends StatelessWidget {
                   ),
                 );
               },
-              reservedSize: 40,
+              reservedSize: 50,
             ),
           ),
         ),
@@ -119,6 +119,7 @@ class FertilityChart extends StatelessWidget {
         minY: 96.5,
         maxY: 99,
         lineBarsData: [
+          // Temperature line
           LineChartBarData(
             spots: tempSpots,
             isCurved: true,
@@ -131,6 +132,26 @@ class FertilityChart extends StatelessWidget {
                 return FlDotCirclePainter(
                   radius: 4,
                   color: Colors.green,
+                  strokeWidth: 1,
+                  strokeColor: Colors.white,
+                );
+              },
+            ),
+            belowBarData: BarAreaData(show: false),
+          ),
+          // LH line - now added to display LH data
+          LineChartBarData(
+            spots: lhSpots,
+            isCurved: true,
+            color: Colors.blue,
+            barWidth: 2,
+            isStrokeCapRound: true,
+            dotData: FlDotData(
+              show: true,
+              getDotPainter: (spot, percent, barData, index) {
+                return FlDotCirclePainter(
+                  radius: 3,
+                  color: Colors.blue,
                   strokeWidth: 1,
                   strokeColor: Colors.white,
                 );

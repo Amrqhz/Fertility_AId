@@ -18,6 +18,7 @@ dependencies:
   intl: ^0.18.1 
   table_calendar: 
   cupertino_icons: ^1.0.8
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +46,10 @@ flutter:
   assets:
     - assets/
     - assets/Asset 5.png
-
+  fonts:
+    - family: AnticDidone
+      fonts:
+        - asset: assets/AnticDidone-Regular.ttf
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
