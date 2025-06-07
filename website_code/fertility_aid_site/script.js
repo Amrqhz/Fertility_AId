@@ -30,12 +30,14 @@ function toggleTheme() {
  * @param {Element} themeText - Theme text element
  */
 function updateThemeToggleButton(theme, themeIcon, themeText) {
+    const currentLang = getCurrentLanguage();
+    
     if (theme === 'dark') {
         themeIcon.textContent = '☀️';
-        themeText.textContent = 'Light Mode';
+        themeText.textContent = currentLang === 'fa' ? 'حالت روشن' : 'Light Mode';
     } else {
         themeIcon.textContent = '🌙';
-        themeText.textContent = 'Dark Mode';
+        themeText.textContent = currentLang === 'fa' ? 'حالت تاریک' : 'Dark Mode';
     }
 }
 
@@ -53,6 +55,163 @@ function loadTheme() {
     
     // Update button appearance
     updateThemeToggleButton(savedTheme, themeIcon, themeText);
+}
+
+/**
+ * Toggle between English and Persian languages
+ */
+function toggleLanguage() {
+    const html = document.documentElement;
+    const languageToggle = document.querySelector('.language-toggle');
+    const languageFlag = document.querySelector('.language-flag');
+    const languageText = document.querySelector('.language-text');
+    
+    const currentLang = html.getAttribute('data-lang') || 'en';
+    const newLang = currentLang === 'en' ? 'fa' : 'en';
+    
+    // Apply new language
+    html.setAttribute('data-lang', newLang);
+    localStorage.setItem('language', newLang);
+    
+    // Update button appearance
+    updateLanguageToggleButton(newLang, languageFlag, languageText);
+    
+    // Update all translatable content
+    updatePageContent(newLang);
+    
+    // Update theme button text based on new language
+    const currentTheme = getCurrentTheme();
+    const themeIcon = document.querySelector('.theme-icon');
+    const themeText = document.querySelector('.theme-text');
+    updateThemeToggleButton(currentTheme, themeIcon, themeText);
+}
+
+/**
+ * Update language toggle button appearance
+ * @param {string} lang - Current language ('en' or 'fa')
+ * @param {Element} languageFlag - Language flag element
+ * @param {Element} languageText - Language text element
+ */
+function updateLanguageToggleButton(lang, languageFlag, languageText) {
+    if (lang === 'fa') {
+        languageFlag.textContent = '🇺🇸';
+        languageText.textContent = 'English';
+    } else {
+        languageFlag.textContent = '🇮🇷';
+        languageText.textContent = 'فارسی';
+    }
+}
+
+/**
+ * Load saved language preference or default to English
+ */
+function loadLanguage() {
+    const savedLanguage = localStorage.getItem('language') || 'en';
+    const html = document.documentElement;
+    const languageFlag = document.querySelector('.language-flag');
+    const languageText = document.querySelector('.language-text');
+    
+    // Apply saved language
+    html.setAttribute('data-lang', savedLanguage);
+    
+    // Update button appearance
+    updateLanguageToggleButton(savedLanguage, languageFlag, languageText);
+    
+    // Update all content
+    updatePageContent(savedLanguage);
+}
+
+/**
+ * Translation dictionary
+ */
+const translations = {
+    en: {
+        title: 'Fertility AId',
+        contact: 'Contact',
+        backToTop: 'Back to top',
+        email: 'Email',
+        subscribe: 'Subscribe',
+        privacyPolicy: 'Our privacy policy',
+        ethicsStandards: 'Ethics & standards',
+        copyright: 'Fertility AId ©2025',
+        designedBy: 'Designed by amrqhz',
+        darkMode: 'Dark Mode',
+        lightMode: 'Light Mode'
+    },
+    fa: {
+        title: 'کمک باروری',
+        contact: 'تماس',
+        backToTop: 'بازگشت به بالا',
+        email: 'ایمیل',
+        subscribe: 'اشتراک',
+        privacyPolicy: 'سیاست حفظ حریم خصوصی ما',
+        ethicsStandards: 'اخلاق و استانداردها',
+        copyright: 'کمک باروری ©۲۰۲۵',
+        designedBy: 'طراحی شده توسط amrqhz',
+        darkMode: 'حالت تاریک',
+        lightMode: 'حالت روشن'
+    }
+};
+
+/**
+ * Update page content based on selected language
+ * @param {string} lang - Language code ('en' or 'fa')
+ */
+function updatePageContent(lang) {
+    const t = translations[lang];
+    
+    // Update title
+    const titleElement = document.querySelector('.article-header__head-title');
+    if (titleElement) {
+        titleElement.textContent = t.title;
+    }
+    
+    // Update page title
+    document.title = t.title;
+    
+    // Update footer contact title
+    const contactTitle = document.querySelector('.site-footer__title-text');
+    if (contactTitle) {
+        contactTitle.textContent = t.contact;
+    }
+    
+    // Update back to top button
+    const backToTopButton = document.querySelector('.site-footer__title-back span:last-child');
+    if (backToTopButton) {
+        backToTopButton.textContent = t.backToTop;
+    }
+    
+    // Update footer links titles
+    const linksTitles = document.querySelectorAll('.site-footer__links-title');
+    linksTitles.forEach((title, index) => {
+        if (index === 0) {
+            title.textContent = t.email;
+        } else if (index === 1) {
+            title.textContent = t.subscribe;
+        }
+    });
+    
+    // Update footer navigation links
+    const navLinks = document.querySelectorAll('.site-footer__nav a');
+    navLinks.forEach((link, index) => {
+        if (index === 0) {
+            link.textContent = t.privacyPolicy;
+        } else if (index === 1) {
+            link.textContent = t.ethicsStandards;
+        }
+    });
+    
+    // Update copyright
+    const copyright = document.querySelector('.site-footer__baseline-copyright');
+    if (copyright) {
+        copyright.textContent = t.copyright;
+    }
+    
+    // Update "Designed by" text
+    const designedBy = document.querySelector('.site-footer__baseline a');
+    if (designedBy) {
+        designedBy.textContent = t.designedBy;
+    }
 }
 
 /**
@@ -91,9 +250,11 @@ function setupEmailCopy() {
 function showCopyFeedback(emailElement) {
     const originalText = emailElement.textContent;
     const originalColor = emailElement.style.color;
+    const currentLang = getCurrentLanguage();
     
-    // Show "Copied!" feedback
-    emailElement.textContent = 'Copied!';
+    // Show "Copied!" feedback in appropriate language
+    const copiedText = currentLang === 'fa' ? 'کپی شد!' : 'Copied!';
+    emailElement.textContent = copiedText;
     emailElement.style.opacity = '0.6';
     
     // Reset after 1 second
@@ -176,6 +337,9 @@ function init() {
     // Setup system theme detection first
     setupSystemThemeDetection();
     
+    // Load saved language first (affects theme button text)
+    loadLanguage();
+    
     // Load saved theme
     loadTheme();
     
@@ -189,7 +353,7 @@ function init() {
         originalToggleTheme();
     };
     
-    console.log('Fertility AId: Theme system initialized');
+    console.log('Fertility AId: All systems initialized');
 }
 
 /**
@@ -202,6 +366,14 @@ function init() {
  */
 function getCurrentTheme() {
     return document.documentElement.getAttribute('data-theme') || 'light';
+}
+
+/**
+ * Get current language
+ * @returns {string} Current language ('en' or 'fa')
+ */
+function getCurrentLanguage() {
+    return document.documentElement.getAttribute('data-lang') || 'en';
 }
 
 /**
@@ -226,6 +398,35 @@ function setTheme(theme) {
 }
 
 /**
+ * Set language programmatically
+ * @param {string} lang - Language to set ('en' or 'fa')
+ */
+function setLanguage(lang) {
+    if (lang !== 'en' && lang !== 'fa') {
+        console.error('Invalid language. Use "en" or "fa"');
+        return;
+    }
+    
+    document.documentElement.setAttribute('data-lang', lang);
+    localStorage.setItem('language', lang);
+    
+    const languageFlag = document.querySelector('.language-flag');
+    const languageText = document.querySelector('.language-text');
+    
+    if (languageFlag && languageText) {
+        updateLanguageToggleButton(lang, languageFlag, languageText);
+    }
+    
+    updatePageContent(lang);
+    
+    // Update theme button text for new language
+    const currentTheme = getCurrentTheme();
+    const themeIcon = document.querySelector('.theme-icon');
+    const themeText = document.querySelector('.theme-text');
+    updateThemeToggleButton(currentTheme, themeIcon, themeText);
+}
+
+/**
  * Reset theme to system preference
  */
 function resetToSystemTheme() {
@@ -235,13 +436,30 @@ function resetToSystemTheme() {
     loadTheme();
 }
 
+/**
+ * Reset language to English
+ */
+function resetLanguage() {
+    localStorage.removeItem('language');
+    loadLanguage();
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', init);
 
+// Make functions available globally
+window.toggleTheme = toggleTheme;
+window.toggleLanguage = toggleLanguage;
+window.scrollToTop = scrollToTop;
+
 // Export functions for potential external use
-window.FertilityAIdTheme = {
+window.FertilityAId = {
     getCurrentTheme,
+    getCurrentLanguage,
     setTheme,
+    setLanguage,
     resetToSystemTheme,
-    toggleTheme
+    resetLanguage,
+    toggleTheme,
+    toggleLanguage
 };

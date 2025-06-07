@@ -32,6 +32,17 @@ body {
     background-color: var(--bg-color);
     font-size: 16px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Playfair Display', serif;
+}
+
+/* Persian font family and RTL support */
+[data-lang="fa"] {
+    font-family: 'Lalezar', sans-serif;
+    direction: rtl;
+}
+
+[data-lang="fa"] * {
+    text-align: right;
 }
 
 a {
@@ -42,6 +53,53 @@ a {
 a:hover {
     text-decoration: underline;
     color: var(--hover-color);
+}
+
+/* =====================================================
+   Language Toggle Button
+   ===================================================== */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--accent-color);
+    color: var(--bg-color);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    font-family: inherit;
+}
+
+.language-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .language-toggle:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.language-flag {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+.language-toggle:hover .language-flag {
+    transform: scale(1.2);
+}
+
+/* RTL positioning for Persian */
+[data-lang="fa"] .language-toggle {
+    left: auto;
+    right: 80px;
 }
 
 /* =====================================================
@@ -85,6 +143,12 @@ a:hover {
     transform: rotate(20deg);
 }
 
+/* RTL positioning for Persian */
+[data-lang="fa"] .theme-toggle {
+    right: auto;
+    left: 20px;
+}
+
 /* =====================================================
    Header Styles
    ===================================================== */
@@ -93,6 +157,11 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+
+/* RTL adjustments for Persian */
+[data-lang="fa"] .header-content-wrapper {
+    flex-direction: row-reverse;
 }
 
 .logo-image {
@@ -192,6 +261,13 @@ a:hover {
     letter-spacing: -0.02em;
 }
 
+/* Persian title adjustments */
+[data-lang="fa"] .article-header__head-title {
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0;
+}
+
 /* Horizontal line after title */
 .article-header__head-title::after {
     content: '';
@@ -230,11 +306,23 @@ a:hover {
     border-bottom: 1px solid var(--accent-color);
 }
 
+/* RTL footer title */
+[data-lang="fa"] .site-footer__title {
+    flex-direction: row-reverse;
+}
+
 .site-footer__title-text {
     font-size: 32px;
     font-weight: 700;
     color: var(--text-color);
     letter-spacing: -0.01em;
+}
+
+/* Persian footer title adjustments */
+[data-lang="fa"] .site-footer__title-text {
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0;
 }
 
 .site-footer__title-back {
@@ -278,6 +366,12 @@ a:hover {
     font-size: 16px;
 }
 
+/* Persian links title */
+[data-lang="fa"] .site-footer__links-title {
+    font-family: 'Vazirmatn', sans-serif;
+    font-weight: 700;
+}
+
 .site-footer__links-link {
     color: var(--text-color);
     font-size: 16px;
@@ -288,6 +382,12 @@ a:hover {
     display: flex;
     gap: 32px;
     flex-wrap: wrap;
+}
+
+/* RTL navigation */
+[data-lang="fa"] .site-footer__nav {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
 }
 
 .site-footer__nav a {
@@ -303,6 +403,11 @@ a:hover {
     border-top: 1px solid var(--accent-color);
     font-size: 16px;
     color: var(--text-color);
+}
+
+/* RTL baseline */
+[data-lang="fa"] .site-footer__baseline {
+    flex-direction: row-reverse;
 }
 
 .site-footer__baseline-copyright {
@@ -329,6 +434,30 @@ a:hover {
 
 .copyable-email:hover {
     color: var(--hover-color);
+}
+
+/* =====================================================
+   Language-specific adjustments
+   ===================================================== */
+[data-lang="fa"] {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+[data-lang="fa"] h1,
+[data-lang="fa"] h2,
+[data-lang="fa"] h3,
+[data-lang="fa"] h4,
+[data-lang="fa"] h5,
+[data-lang="fa"] h6 {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+[data-lang="fa"] button {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+[data-lang="fa"] .site-footer__nav {
+    justify-content: flex-start;
 }
 
 /* =====================================================
@@ -361,6 +490,11 @@ a:hover {
         align-items: flex-start;
     }
     
+    /* RTL mobile footer adjustments */
+    [data-lang="fa"] .site-footer__title {
+        align-items: flex-end;
+    }
+    
     .site-footer__nav {
         flex-direction: column;
         gap: 16px;
@@ -371,12 +505,36 @@ a:hover {
         align-items: flex-start;
         gap: 8px;
     }
+    
+    /* RTL mobile baseline */
+    [data-lang="fa"] .site-footer__baseline {
+        align-items: flex-end;
+    }
 
-    .theme-toggle {
+    .theme-toggle,
+    .language-toggle {
         top: 15px;
-        right: 15px;
         padding: 10px 16px;
         font-size: 12px;
+    }
+    
+    .theme-toggle {
+        right: 15px;
+    }
+    
+    .language-toggle {
+        left: 15px;
+    }
+    
+    /* RTL mobile button positioning */
+    [data-lang="fa"] .theme-toggle {
+        right: auto;
+        left: 15px;
+    }
+    
+    [data-lang="fa"] .language-toggle {
+        left: auto;
+        right: 80px;
     }
 }
 
@@ -404,8 +562,22 @@ a:hover {
         gap: 20px;
         text-align: center;
     }
+    
+    /* RTL mobile header */
+    [data-lang="fa"] .header-content-wrapper {
+        text-align: center;
+    }
 
     .logo-image {
         height: 80px;
+    }
+    
+    .language-toggle {
+        left: 15px;
+    }
+    
+    [data-lang="fa"] .language-toggle {
+        left: auto;
+        right: 15px;
     }
 }
