@@ -139,14 +139,14 @@ const translations = {
         lightMode: 'Light Mode'
     },
     fa: {
-        title: 'کمک باروری',
+        title: 'باروریار',
         contact: 'تماس',
         backToTop: 'بازگشت به بالا',
         email: 'ایمیل',
         subscribe: 'اشتراک',
         privacyPolicy: 'سیاست حفظ حریم خصوصی ما',
         ethicsStandards: 'اخلاق و استانداردها',
-        copyright: 'کمک باروری ©۲۰۲۵',
+        copyright: 'باروریار ©۲۰۲۵',
         designedBy: 'طراحی شده توسط amrqhz',
         darkMode: 'حالت تاریک',
         lightMode: 'حالت روشن'

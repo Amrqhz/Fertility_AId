@@ -35,15 +35,13 @@ body {
     font-family: 'Playfair Display', serif;
 }
 
-/* Persian font family and RTL support */
+
 [data-lang="fa"] {
     font-family: 'Lalezar', sans-serif;
-    direction: rtl;
+    
 }
 
-[data-lang="fa"] * {
-    text-align: right;
-}
+
 
 a {
     color: inherit;
@@ -76,6 +74,7 @@ a:hover {
     transition: all 0.3s ease;
     z-index: 1000;
     font-family: inherit;
+    width: 150px;
 }
 
 .language-toggle:hover {
@@ -96,11 +95,7 @@ a:hover {
     transform: scale(1.2);
 }
 
-/* RTL positioning for Persian */
-[data-lang="fa"] .language-toggle {
-    left: auto;
-    right: 80px;
-}
+
 
 /* =====================================================
    Theme Toggle Button
@@ -123,6 +118,7 @@ a:hover {
     transition: all 0.3s ease;
     z-index: 1000;
     font-family: inherit;
+    width: 150px;
 }
 
 .theme-toggle:hover {
@@ -143,12 +139,6 @@ a:hover {
     transform: rotate(20deg);
 }
 
-/* RTL positioning for Persian */
-[data-lang="fa"] .theme-toggle {
-    right: auto;
-    left: 20px;
-}
-
 /* =====================================================
    Header Styles
    ===================================================== */
@@ -159,13 +149,10 @@ a:hover {
     width: 100%;
 }
 
-/* RTL adjustments for Persian */
-[data-lang="fa"] .header-content-wrapper {
-    flex-direction: row-reverse;
-}
+
 
 .logo-image {
-    height: 100px;
+    height: 120px;
     width: auto;
     filter: brightness(1);
     transition: filter 0.3s ease;
@@ -261,9 +248,9 @@ a:hover {
     letter-spacing: -0.02em;
 }
 
-/* Persian title adjustments */
+
 [data-lang="fa"] .article-header__head-title {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
     font-weight: 800;
     letter-spacing: 0;
 }
@@ -306,10 +293,6 @@ a:hover {
     border-bottom: 1px solid var(--accent-color);
 }
 
-/* RTL footer title */
-[data-lang="fa"] .site-footer__title {
-    flex-direction: row-reverse;
-}
 
 .site-footer__title-text {
     font-size: 32px;
@@ -318,9 +301,9 @@ a:hover {
     letter-spacing: -0.01em;
 }
 
-/* Persian footer title adjustments */
+
 [data-lang="fa"] .site-footer__title-text {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
     font-weight: 800;
     letter-spacing: 0;
 }
@@ -366,9 +349,9 @@ a:hover {
     font-size: 16px;
 }
 
-/* Persian links title */
+/* Persian links title - keeping LTR */
 [data-lang="fa"] .site-footer__links-title {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
     font-weight: 700;
 }
 
@@ -384,11 +367,7 @@ a:hover {
     flex-wrap: wrap;
 }
 
-/* RTL navigation */
-[data-lang="fa"] .site-footer__nav {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-}
+
 
 .site-footer__nav a {
     color: var(--text-color);
@@ -405,10 +384,7 @@ a:hover {
     color: var(--text-color);
 }
 
-/* RTL baseline */
-[data-lang="fa"] .site-footer__baseline {
-    flex-direction: row-reverse;
-}
+
 
 .site-footer__baseline-copyright {
     font-weight: 400;
@@ -440,7 +416,7 @@ a:hover {
    Language-specific adjustments
    ===================================================== */
 [data-lang="fa"] {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
 }
 
 [data-lang="fa"] h1,
@@ -449,16 +425,14 @@ a:hover {
 [data-lang="fa"] h4,
 [data-lang="fa"] h5,
 [data-lang="fa"] h6 {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
 }
 
 [data-lang="fa"] button {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: 'Lalezar', sans-serif;
 }
 
-[data-lang="fa"] .site-footer__nav {
-    justify-content: flex-start;
-}
+
 
 /* =====================================================
    Responsive Design
@@ -490,10 +464,7 @@ a:hover {
         align-items: flex-start;
     }
     
-    /* RTL mobile footer adjustments */
-    [data-lang="fa"] .site-footer__title {
-        align-items: flex-end;
-    }
+
     
     .site-footer__nav {
         flex-direction: column;
@@ -506,10 +477,7 @@ a:hover {
         gap: 8px;
     }
     
-    /* RTL mobile baseline */
-    [data-lang="fa"] .site-footer__baseline {
-        align-items: flex-end;
-    }
+
 
     .theme-toggle,
     .language-toggle {
@@ -526,16 +494,7 @@ a:hover {
         left: 15px;
     }
     
-    /* RTL mobile button positioning */
-    [data-lang="fa"] .theme-toggle {
-        right: auto;
-        left: 15px;
-    }
-    
-    [data-lang="fa"] .language-toggle {
-        left: auto;
-        right: 80px;
-    }
+
 }
 
 @media (max-width: 480px) {
@@ -563,10 +522,6 @@ a:hover {
         text-align: center;
     }
     
-    /* RTL mobile header */
-    [data-lang="fa"] .header-content-wrapper {
-        text-align: center;
-    }
 
     .logo-image {
         height: 80px;
@@ -576,8 +531,4 @@ a:hover {
         left: 15px;
     }
     
-    [data-lang="fa"] .language-toggle {
-        left: auto;
-        right: 15px;
-    }
 }
