@@ -34,6 +34,108 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
     font-family: 'Playfair Display', serif;
 }
+.video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+
+    margin: 2rem 0;
+}
+
+.video video {
+    max-width: 600px;
+    width: 90%;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.img_app {
+    position: relative;
+    max-width: 300px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Slider Wrapper */
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Individual Images */
+.img_app img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    flex: 0 0 100%;
+    display: block;
+}
+
+/* Navigation Arrows */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.276);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.slider-nav:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slider-nav.prev {
+    left: 20px;
+}
+
+.slider-nav.next {
+    right: 20px;
+}
+
+/* Dots Indicator */
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.2);
+}
+
+.dot:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
 
 
 [data-lang="fa"] {

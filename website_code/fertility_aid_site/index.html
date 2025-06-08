@@ -42,6 +42,29 @@
                                 </div>
                             </header>
                         </div>
+                        <div class="video">
+                            <video src="./video_2025-06-08_13-24-48.mp4" controls muted></video>   
+                        </div>
+                        <div class="img_app">
+                            <div class="slider-wrapper" id="sliderWrapper">
+                                <img src="./photo_4_2025-06-08_13-38-37.jpg" alt="Image 1">
+                                <img src="./photo_1_2025-06-08_13-38-37.jpg" alt="Image 2">
+                                <img src="./photo_2_2025-06-08_13-38-37.jpg" alt="Image 3">
+                                <img src="./photo_3_2025-06-08_13-38-37.jpg" alt="Image 4">
+                            </div>
+                            
+                            <!-- Navigation Arrows -->
+                            <button class="slider-nav prev" onclick="changeSlide(-1)">‹</button>
+                            <button class="slider-nav next" onclick="changeSlide(1)">›</button>
+                            
+                            <!-- Dots Indicator -->
+                            <div class="slider-dots">
+                                <span class="dot active" onclick="currentSlide(1)"></span>
+                                <span class="dot" onclick="currentSlide(2)"></span>
+                                <span class="dot" onclick="currentSlide(3)"></span>
+                                <span class="dot" onclick="currentSlide(4)"></span>
+                            </div>
+                        </div>
                     </main>
                     <footer class="site-footer">
                         <div class="site-footer__inner">

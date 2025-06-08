@@ -23,6 +23,70 @@ function toggleTheme() {
     updateThemeToggleButton(newTheme, themeIcon, themeText);
 }
 
+let currentSlideIndex = 0;
+const totalSlides = 4;
+
+function showSlide(index) {
+    const sliderWrapper = document.getElementById('sliderWrapper');
+    const dots = document.querySelectorAll('.dot');
+    
+    // Ensure index is within bounds
+    if (index >= totalSlides) currentSlideIndex = 0;
+    else if (index < 0) currentSlideIndex = totalSlides - 1;
+    else currentSlideIndex = index;
+    
+    // Move slider
+    const translateX = -currentSlideIndex * 100;
+    sliderWrapper.style.transform = `translateX(${translateX}%)`;
+    
+    // Update dots
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlideIndex);
+    });
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlideIndex + direction);
+}
+
+function currentSlide(index) {
+    showSlide(index - 1);
+}
+
+// Auto-slide functionality (optional)
+function autoSlide() {
+    changeSlide(1);
+}
+
+// Uncomment the line below if you want auto-sliding every 5 seconds
+// setInterval(autoSlide, 5000);
+
+// Touch/swipe support for mobile
+let startX = 0;
+let endX = 0;
+
+document.getElementById('sliderWrapper').addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+});
+
+document.getElementById('sliderWrapper').addEventListener('touchend', (e) => {
+    endX = e.changedTouches[0].clientX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const threshold = 50;
+    const diff = startX - endX;
+    
+    if (Math.abs(diff) > threshold) {
+        if (diff > 0) {
+            changeSlide(1); // Swipe left - next slide
+        } else {
+            changeSlide(-1); // Swipe right - previous slide
+        }
+    }
+}
+
 /**
  * Update theme toggle button appearance
  * @param {string} theme - Current theme ('light' or 'dark')
@@ -139,7 +203,7 @@ const translations = {
         lightMode: 'Light Mode'
     },
     fa: {
-        title: 'باروریار',
+        title: 'بــــاروریــــار',
         contact: 'تماس',
         backToTop: 'بازگشت به بالا',
         email: 'ایمیل',
