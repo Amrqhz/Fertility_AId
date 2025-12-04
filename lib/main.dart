@@ -1,4 +1,4 @@
-// 2. Updated main.dart with proper navigation flow:
+// Updated main.dart with custom bottom navigation bar:
 
 import 'package:flutter/material.dart';
 import 'package:fertility_aid/screens/home_screen.dart';
@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Fertility_AId',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
@@ -86,20 +87,58 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2; // Start with Home (index 1) as active
   
+  // Updated to only 3 screens matching the custom navigation
   static const List<Widget> _screens = <Widget>[
-    HomeScreen(),
+    UserInfoDisplayPage(), // Profile - index 0
     CalendarScreen(),
+    HomeScreen(),          // Home - index 1
+    EducationScreen(),     // Learning - index 2
     HistoryScreen(),
-    EducationScreen(),
-    UserInfoDisplayPage()
+
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // Helper method for custom navigation items
+  Widget _buildNavItem(String label, IconData icon, int index, bool isSelected) {
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected 
+            ? Colors.white.withOpacity(0.8) 
+            : Colors.transparent,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.black87 : Colors.black54,
+              size: 18,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: isSelected ? Colors.black87 : Colors.black54,
+                fontSize: 10,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -114,31 +153,54 @@ class _MainScreenState extends State<MainScreen> {
         child: const Icon(Icons.add),
         tooltip: 'Log Today\'s Data',
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      // Custom Bottom Navigation Bar
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: const Color(0xFFE8C4D6), // Pink color matching your image
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: Container(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildNavItem(
+                  'Info',
+                  Icons.person,
+                  0,
+                  _selectedIndex == 0,
+                ),
+                _buildNavItem(
+                  'Calendar',
+                  Icons.calendar_today,
+                  1,
+                  _selectedIndex == 1,
+                ),
+                _buildNavItem(
+                  'Home',
+                  Icons.home,
+                  2,
+                  _selectedIndex == 2,
+                ),
+                _buildNavItem(
+                  'Learn',
+                  Icons.book,
+                  3,
+                  _selectedIndex == 3,
+                ),
+                _buildNavItem(
+                  'History',
+                  Icons.history,
+                  4,
+                  _selectedIndex == 4,
+                ),
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'History',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: 'Learn',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "info")
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

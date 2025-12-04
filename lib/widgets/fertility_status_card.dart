@@ -6,11 +6,11 @@ class FertilityStatusCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // In a real app, this would be calculated based on user data
-    const String fertileStatus = "High Fertility";
+    const String fertileStatus = "باروری زیاد";
     const int cycleDay = 8;
-    const String nextPeriod = "June 15";
-    const String ovulationPrediction = "June 2";
-    const String fertileWindow = "May 30 - June 3";
+    const String nextPeriod = "3 مهر";
+    const String ovulationPrediction = "19 شهریور";
+    const String fertileWindow = "17شهریور20 - شهریور";
 
     return Card(
       elevation: 2,
@@ -30,11 +30,11 @@ class FertilityStatusCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Your Fertility Status',
+                      'وضعیت باروری شما ',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
-                      'Cycle Day $cycleDay',
+                      'روز دوران قاعدگی $cycleDay',
                       style: Theme.of(context).textTheme.labelMedium,
                     ),
                   ],
@@ -62,7 +62,7 @@ class FertilityStatusCard extends StatelessWidget {
                   child: _buildStatusItem(
                     context,
                     Icons.thermostat,
-                    'Predicted Ovulation',
+                    'تخمین باروری',
                     ovulationPrediction,
                   ),
                 ),
@@ -70,7 +70,7 @@ class FertilityStatusCard extends StatelessWidget {
                   child: _buildStatusItem(
                     context,
                     Icons.water_drop,
-                    'Fertile Window',
+                    'پنجره باروری',
                     fertileWindow,
                   ),
                 ),
@@ -78,7 +78,7 @@ class FertilityStatusCard extends StatelessWidget {
                   child: _buildStatusItem(
                     context,
                     Icons.calendar_today,
-                    'Next Period',
+                    'تاریخ قاعدگی',
                     nextPeriod,
                   ),
                 ),

@@ -33,60 +33,68 @@ class _CalendarScreenState extends State<CalendarScreen> {
         title: const Text('Fertility Calendar'),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            TableCalendar(
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              focusedDay: _focusedDay,
-              calendarFormat: _calendarFormat,
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-              },
-              onFormatChanged: (format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              },
-              onPageChanged: (focusedDay) {
-                _focusedDay = focusedDay;
-              },
-              eventLoader: _getEventsForDay,
-              calendarStyle: CalendarStyle(
-                markerDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: BoxShape.circle,
-                ),
-                todayDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                  shape: BoxShape.circle,
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  shape: BoxShape.circle,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Calendar section with constrained height
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                child: TableCalendar(
+                  firstDay: DateTime.utc(2020, 1, 1),
+                  lastDay: DateTime.utc(2030, 12, 31),
+                  focusedDay: _focusedDay,
+                  calendarFormat: _calendarFormat,
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+                  onDaySelected: (selectedDay, focusedDay) {
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                  },
+                  onFormatChanged: (format) {
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  },
+                  onPageChanged: (focusedDay) {
+                    _focusedDay = focusedDay;
+                  },
+                  eventLoader: _getEventsForDay,
+                  // Add height constraint to prevent overflow
+                  daysOfWeekHeight: 40,
+                  rowHeight: 52,
+                  calendarStyle: CalendarStyle(
+                    markerDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                      shape: BoxShape.circle,
+                    ),
+                    selectedDecoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  headerStyle: HeaderStyle(
+                    formatButtonTextStyle: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    formatButtonDecoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                  ),
                 ),
               ),
-              headerStyle: HeaderStyle(
-                formatButtonTextStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                formatButtonDecoration: BoxDecoration(
-                  border: Border.all(color: Theme.of(context).colorScheme.primary),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: _buildEventList(),
-            ),
-          ],
+              const SizedBox(height: 16),
+              // Events section
+              _buildEventList(),
+            ],
+          ),
         ),
       ),
     );
@@ -99,6 +107,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             _selectedDay != null
@@ -117,6 +126,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'Calendar Legend',
@@ -134,6 +144,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
               ),
             ),
           ),
+          // Add bottom padding for scroll space
+          const SizedBox(height: 20),
         ],
       ),
     );

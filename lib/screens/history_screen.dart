@@ -10,93 +10,93 @@ class HistoryScreen extends StatelessWidget {
     final List<Map<String, dynamic>> historyData = [
       {
         'date': DateTime.now().subtract(const Duration(days: 14)),
-        'temperature': 97.3,
-        'lhResult': 'negative',
-        'notes': 'Feeling normal',
+        'temperature': 37.3,
+        'lhResult': 'منفی',
+        'notes': 'وضعیت نرمال ',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 13)),
-        'temperature': 97.2,
-        'lhResult': 'negative',
+        'temperature': 37.2,
+        'lhResult': 'منفی',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 12)),
-        'temperature': 97.4,
-        'lhResult': 'negative',
-        'notes': 'Slight cramping',
+        'temperature': 37.4,
+        'lhResult': 'منفی',
+        'notes': 'شروع درد های کرمپی شکم',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 11)),
-        'temperature': 97.3,
-        'lhResult': 'low',
+        'temperature': 37.3,
+        'lhResult': 'پایین',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 10)),
-        'temperature': 97.5,
-        'lhResult': 'low',
-        'notes': 'Increased cervical mucus',
+        'temperature': 37.5,
+        'lhResult': 'پایین',
+        'notes': 'افزایش ضخامت موکوز واژن',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 9)),
-        'temperature': 97.6,
-        'lhResult': 'high',
+        'temperature': 37.6,
+        'lhResult': 'بالا',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 8)),
-        'temperature': 97.8,
-        'lhResult': 'high',
+        'temperature': 37.8,
+        'lhResult': 'بالا',
         'notes': 'Egg white cervical mucus',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 7)),
-        'temperature': 98.0,
-        'lhResult': 'peak',
-        'notes': 'Ovulation pain',
+        'temperature': 38.0,
+        'lhResult': 'حداکثر',
+        'notes': 'شروع درد های تخمک گذاری',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 6)),
-        'temperature': 98.2,
-        'lhResult': 'high',
+        'temperature': 38.2,
+        'lhResult': 'بالا',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 5)),
-        'temperature': 98.3,
-        'lhResult': 'low',
+        'temperature': 38.3,
+        'lhResult': 'پایین ',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 4)),
-        'temperature': 98.4,
-        'lhResult': 'negative',
+        'temperature': 38.4,
+        'lhResult': 'منفی',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 3)),
-        'temperature': 98.3,
-        'lhResult': 'negative',
-        'notes': 'Feeling tired',
+        'temperature': 38.3,
+        'lhResult': 'منفی',
+        'notes': 'احساس خستگی مداوم',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 2)),
-        'temperature': 98.4,
-        'lhResult': 'negative',
+        'temperature': 38.4,
+        'lhResult': 'منفی',
         'notes': '',
       },
       {
         'date': DateTime.now().subtract(const Duration(days: 1)),
-        'temperature': 98.3,
-        'lhResult': 'negative',
+        'temperature': 38.3,
+        'lhResult': 'منفی',
         'notes': '',
       },
     ];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fertility History'),
+        title: const Text('تاریخچه باروری شما'),
       ),
       body: SafeArea(
         child: ListView.builder(
@@ -120,18 +120,18 @@ class HistoryScreen extends StatelessWidget {
     Color cardColor;
     String fertilityStatus;
 
-    if (lhResult == 'peak') {
-      cardColor = Colors.red.withOpacity(0.1);
-      fertilityStatus = 'Peak Fertility';
-    } else if (lhResult == 'high') {
-      cardColor = Theme.of(context).colorScheme.primary.withOpacity(0.1);
-      fertilityStatus = 'High Fertility';
-    } else if (temperature > 98.0) {
+    if (lhResult == 'حداکثر') {
+      cardColor = const Color.fromARGB(255, 12, 190, 6).withOpacity(0.1);
+      fertilityStatus = 'حداکثر میزان باروری';
+    } else if (lhResult == 'بالا') {
+      cardColor = Colors.amberAccent.withOpacity(0.1);
+      fertilityStatus = 'باروری با درصد موفقیت بالا';
+    } else if (temperature > 38.0) {
       cardColor = Colors.purple.withOpacity(0.1);
-      fertilityStatus = 'Post-Ovulation';
+      fertilityStatus = 'پس از تخمک گذاری';
     } else {
-      cardColor = Colors.grey.withOpacity(0.1);
-      fertilityStatus = 'Low Fertility';
+      cardColor = const Color.fromARGB(122, 225, 240, 88).withOpacity(0.1);
+      fertilityStatus = 'باروری با درصد موفقیت کم';
     }
 
     return Card(
@@ -152,7 +152,7 @@ class HistoryScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: cardColor.withOpacity(0.5),
+                    color: cardColor.withOpacity(0.9),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -172,15 +172,15 @@ class HistoryScreen extends StatelessWidget {
                 Expanded(
                   child: _buildDataItem(
                     context,
-                    'Temperature',
-                    '${temperature.toStringAsFixed(1)}°F',
+                    'دما',
+                    '${temperature.toStringAsFixed(1)}°C',
                     Icons.thermostat,
                   ),
                 ),
                 Expanded(
                   child: _buildDataItem(
                     context,
-                    'LH Result',
+                    'LH نتیجه',
                     _formatLHResult(lhResult),
                     Icons.water_drop,
                   ),
@@ -190,7 +190,7 @@ class HistoryScreen extends StatelessWidget {
             if (notes.isNotEmpty) ...[
               const SizedBox(height: 12),
               Text(
-                'Notes:',
+                'یادداشت:',
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -234,14 +234,14 @@ class HistoryScreen extends StatelessWidget {
 
   String _formatLHResult(String result) {
     switch (result) {
-      case 'negative':
-        return 'Negative';
-      case 'low':
-        return 'Low';
-      case 'high':
-        return 'High';
-      case 'peak':
-        return 'Peak';
+      case 'منفی':
+        return 'منفی';
+      case 'پایین':
+        return 'پایین';
+      case 'بالا':
+        return 'بالا';
+      case 'حداکثر':
+        return 'حداکثر';
       default:
         return result;
     }

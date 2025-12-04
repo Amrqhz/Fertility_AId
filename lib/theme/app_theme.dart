@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   // Colors
-  static const Color primaryColor = Color(0xFFEAACC3); // teal-500
+  static const Color primaryColor = Color(0xFFDAB2BF); // teal-500
   static const Color secondaryColor = Color(0xFF0EA5E9); // sky-500
   static const Color backgroundColor = Color(0xFFFEDCE7); // teal-50
-  static const Color cardColor = Color.fromARGB(255, 255, 236, 236);
-  static const Color textColor = Color.fromARGB(255, 20, 26, 36); // gray-800
+  static const Color cardColor = Color(0xFFFFECEC);
+  static const Color textColor = Color(0xFF000000); // gray-800
   static const Color mutedTextColor = Color(0xFF6B7280); // gray-500
 
   // Light Theme
@@ -28,7 +28,7 @@ class AppTheme {
       foregroundColor: Colors.white,
       elevation: 0,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardColor,
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -125,7 +125,7 @@ class AppTheme {
       foregroundColor: Colors.white,
       elevation: 0,
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: const Color(0xFF2A2A2A),
       elevation: 2,
       shape: RoundedRectangleBorder(

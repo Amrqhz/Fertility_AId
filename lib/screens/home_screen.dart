@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fertility_aid/widgets/fertility_status_card.dart';
 import 'package:fertility_aid/widgets/fertility_chart.dart';
 import 'package:fertility_aid/widgets/education_card.dart';
+import 'package:fertility_aid/widgets/protips.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,16 +10,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Fertility AId'),
-        centerTitle: true,
-      ),
+      // appBar: AppBar(
+      //   title: const Text('Fertility AId'),
+      //   centerTitle: true,
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              IconButton(
+                icon: Icon(Icons.person, size: 25),
+                onPressed: () => Navigator.pushReplacementNamed(context, "/info"),
+              ),
+              SizedBox(width: 5),
               const FertilityStatusCard(),
               const SizedBox(height: 16),
               Card(
@@ -35,14 +41,14 @@ class HomeScreen extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Fertility Chart',
+                            'نمودار باروری شما',
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ],
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Your fertility data for the past 30 days',
+                        'داده های مرتبط با وضعیت باروری شما در طی سیکل',
                         style: Theme.of(context).textTheme.labelMedium,
                       ),
                       const SizedBox(height: 16),
@@ -57,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushNamed(context, '/history');
                           },
-                          child: const Text('View Full History'),
+                          child: const Text('مرور کامل وضعیت شما'),
                         ),
                       ),
                     ],
@@ -65,6 +71,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+              const Protips(),
               const EducationCard(),
             ],
           ),

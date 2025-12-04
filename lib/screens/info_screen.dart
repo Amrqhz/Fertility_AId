@@ -42,19 +42,27 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Profile'),
-        backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () => _editProfile(),
           ),
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/home');
+            },
+            child: Text(
+              "برگشت",
+              style: TextStyle(fontSize: 16, color: Colors.black),
+            ),
+          ),
         ],
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _userInfo == null
+      body:
+          _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _userInfo == null
               ? _buildEmptyState()
               : _buildProfileContent(),
     );
@@ -65,21 +73,17 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.person_outline,
-            size: 80,
-            color: Colors.grey.shade400,
-          ),
+          Icon(Icons.person_outline, size: 80, color: Colors.grey.shade400),
           const SizedBox(height: 16),
           Text(
-            'No Profile Found',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-              color: Colors.grey.shade600,
-            ),
+            'پروفایلی یافت نشد',
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(color: Colors.grey.shade600),
           ),
           const SizedBox(height: 8),
           Text(
-            'Set up your profile to get started',
+            'پروفایلت رو بساز تا اطلاعات ما کامل باشه و بعد بتونیم با بهم شروع کنیم',
             style: TextStyle(color: Colors.grey.shade600),
           ),
           const SizedBox(height: 24),
@@ -98,7 +102,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
         children: [
           // Profile Header
           _buildProfileHeader(),
-          
+
           // Profile Information Cards
           Padding(
             padding: const EdgeInsets.all(16.0),
@@ -163,7 +167,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
               ),
               const SizedBox(height: 16),
               Text(
-                _userInfo!.name.isNotEmpty ? _userInfo!.name : 'User',
+                _userInfo!.name.isNotEmpty ? _userInfo!.name : 'کاربر',
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -173,11 +177,8 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
               if (_userInfo!.age > 0) ...[
                 const SizedBox(height: 8),
                 Text(
-                  'Age: ${_userInfo!.age}',
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
+                  'سن: ${_userInfo!.age}',
+                  style: const TextStyle(fontSize: 16, color: Colors.white70),
                 ),
               ],
             ],
@@ -189,7 +190,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
 
   Widget _buildPersonalInfoCard() {
     return _buildInfoCard(
-      title: 'Personal Information',
+      title: 'اطلاعات شخصی',
       icon: Icons.person,
       children: [
         if (_userInfo!.weight > 0)
@@ -204,55 +205,61 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
 
   Widget _buildCycleInfoCard() {
     return _buildInfoCard(
-      title: 'Cycle Information',
+      title: 'اطلاعات سیکل قاعدگی',
       icon: Icons.calendar_month,
       children: [
-        _buildInfoRow('Average Cycle Length', '${_userInfo!.averageCycleLength} days'),
-        _buildInfoRow('Average Period Length', '${_userInfo!.averagePeriodLength} days'),
+        _buildInfoRow(
+          'میانگین مدت زمان سیکل قاعدگی',
+          '${_userInfo!.averageCycleLength} days',
+        ),
+        _buildInfoRow(
+          'میانگین مدت زمان قاعدگی',
+          '${_userInfo!.averagePeriodLength} days',
+        ),
         if (_userInfo!.lastPeriodDate != null)
           _buildInfoRow(
-            'Last Period Date',
+            'اخرین تاریخ قاعدگی',
             '${_userInfo!.lastPeriodDate!.day}/${_userInfo!.lastPeriodDate!.month}/${_userInfo!.lastPeriodDate!.year}',
           ),
         if (_userInfo!.lastPeriodDate != null)
-          _buildInfoRow('Days Since Last Period', _getDaysSinceLastPeriod()),
+          _buildInfoRow('روز از اخرین قاعدگی', _getDaysSinceLastPeriod()),
       ],
     );
   }
 
   Widget _buildHealthInfoCard() {
     return _buildInfoCard(
-      title: 'Health Information',
+      title: 'اطلاعات سلامتی کاربر',
       icon: Icons.medical_services,
       children: [
-        _buildInfoRow('Contraceptive Method', _userInfo!.contraceptiveMethod),
-        _buildInfoRow('Temperature Unit', _userInfo!.temperatureUnit),
+        _buildInfoRow('روش پیشگیری', _userInfo!.contraceptiveMethod),
+        _buildInfoRow('واحد دما', _userInfo!.temperatureUnit),
       ],
     );
   }
 
   Widget _buildSymptomsCard() {
     if (_userInfo!.symptoms.isEmpty) return const SizedBox.shrink();
-    
+
     return _buildInfoCard(
-      title: 'Common Symptoms',
+      title: 'علائم شایع',
       icon: Icons.healing,
       children: [
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: _userInfo!.symptoms.map((symptom) {
-            return Chip(
-              label: Text(
-                symptom,
-                style: const TextStyle(fontSize: 12),
-              ),
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-              side: BorderSide(
-                color: Theme.of(context).primaryColor.withOpacity(0.3),
-              ),
-            );
-          }).toList(),
+          children:
+              _userInfo!.symptoms.map((symptom) {
+                return Chip(
+                  label: Text(symptom, style: const TextStyle(fontSize: 12)),
+                  backgroundColor: Theme.of(
+                    context,
+                  ).primaryColor.withOpacity(0.1),
+                  side: BorderSide(
+                    color: Theme.of(context).primaryColor.withOpacity(0.3),
+                  ),
+                );
+              }).toList(),
         ),
       ],
     );
@@ -260,7 +267,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
 
   Widget _buildNotesCard() {
     return _buildInfoCard(
-      title: 'Notes',
+      title: 'یادداشت',
       icon: Icons.note,
       children: [
         Container(
@@ -271,10 +278,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.grey.shade200),
           ),
-          child: Text(
-            _userInfo!.notes,
-            style: const TextStyle(fontSize: 14),
-          ),
+          child: Text(_userInfo!.notes, style: const TextStyle(fontSize: 14)),
         ),
       ],
     );
@@ -287,9 +291,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
   }) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -297,11 +299,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
           children: [
             Row(
               children: [
-                Icon(
-                  icon,
-                  color: Theme.of(context).primaryColor,
-                  size: 24,
-                ),
+                Icon(icon, color: Theme.of(context).primaryColor, size: 24),
                 const SizedBox(width: 12),
                 Text(
                   title,
@@ -340,9 +338,7 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
             flex: 3,
             child: Text(
               value,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600),
             ),
           ),
         ],
@@ -360,16 +356,17 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
   }
 
   String _getBMICategory(double bmi) {
-    if (bmi < 18.5) return '(Underweight)';
-    if (bmi < 25) return '(Normal)';
-    if (bmi < 30) return '(Overweight)';
-    return '(Obese)';
+    if (bmi < 18.5) return '(کمبود وزن)';
+    if (bmi < 25) return '(نرمال)';
+    if (bmi < 30) return '(اضافه وزن)';
+    return '(چاق)';
   }
 
   String _getDaysSinceLastPeriod() {
     if (_userInfo!.lastPeriodDate != null) {
-      final daysSince = DateTime.now().difference(_userInfo!.lastPeriodDate!).inDays;
-      return '$daysSince days ago';
+      final daysSince =
+          DateTime.now().difference(_userInfo!.lastPeriodDate!).inDays;
+      return '$daysSince روز پیش';
     }
     return 'N/A';
   }
@@ -378,13 +375,14 @@ class _UserInfoDisplayPageState extends State<UserInfoDisplayPage> {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => UserInfoDashboard(
-          isFirstTime: false,
-          existingUserInfo: _userInfo,
-        ),
+        builder:
+            (context) => UserInfoDashboard(
+              isFirstTime: false,
+              existingUserInfo: _userInfo,
+            ),
       ),
     );
-    
+
     if (result != null) {
       setState(() {
         _userInfo = result as UserInfoModel;

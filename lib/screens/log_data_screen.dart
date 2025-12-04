@@ -13,7 +13,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
   
   DateTime _selectedDate = DateTime.now();
   final TextEditingController _temperatureController = TextEditingController();
-  String _lhResult = 'negative';
+  String _lhResult = 'منفی';
   final TextEditingController _notesController = TextEditingController();
 
   @override
@@ -51,7 +51,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
     if (_formKey.currentState!.validate()) {
       // In a real app, save this data to a database
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Data saved successfully!')),
+        const SnackBar(content: Text('اطلاعات با موفقیت ثبت شد!')),
       );
       Navigator.pop(context);
     }
@@ -61,7 +61,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Log Fertility Data'),
+        title: const Text('اطلاعات کاربری'),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -78,7 +78,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Date',
+                          'تاریخ',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
@@ -113,59 +113,59 @@ class _LogDataScreenState extends State<LogDataScreen> {
                         const SizedBox(height: 24),
                         
                         Text(
-                          'Basal Body Temperature (°F)',
+                          'دمای پایه ی بدن (°c)',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
                         TextFormField(
                           controller: _temperatureController,
                           decoration: const InputDecoration(
-                            hintText: '97.8',
+                            hintText: '37.8',
                           ),
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a temperature';
+                              return 'لطفا دما را وارد کنید';
                             }
                             final temp = double.tryParse(value);
                             if (temp == null) {
-                              return 'Please enter a valid number';
+                              return 'لطفا یک عدد درست وارد کنید';
                             }
                             if (temp < 96 || temp > 100) {
-                              return 'Temperature must be between 96°F and 100°F';
+                              return 'دما باید بین 36 الی 38 درجه سیلسیوس باشد';
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Enter your temperature taken first thing in the morning',
+                          'دما را در اولین فرصت پس از بیدار شدن از خواب در هنگام صبح وارد کنید',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const SizedBox(height: 24),
                         
                         Text(
-                          'LH Test Result',
+                          'نتیجه تست LH',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
                         _buildLHRadioGroup(),
                         const SizedBox(height: 4),
                         Text(
-                          'Select the result from your LH test strip',
+                          'نتیجه تست LH را براساس کیت انتخاب کنید',
                           style: Theme.of(context).textTheme.labelMedium,
                         ),
                         const SizedBox(height: 24),
                         
                         Text(
-                          'Notes (Optional)',
+                          'یادداشت (اختیاری)',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 8),
                         TextFormField(
                           controller: _notesController,
                           decoration: const InputDecoration(
-                            hintText: 'Any additional observations...',
+                            hintText: 'مشاهدات اضافی ...',
                           ),
                           maxLines: 3,
                         ),
@@ -180,7 +180,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: _submitForm,
-                            child: const Text('Save Data'),
+                            child: const Text('ذخیره اطلاعات '),
                           ),
                         ),
                       ],
@@ -199,8 +199,8 @@ class _LogDataScreenState extends State<LogDataScreen> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('Negative (no test line)'),
-          value: 'negative',
+          title: const Text('منفی (بدون تست) '),
+          value: 'منفی',
           groupValue: _lhResult,
           onChanged: (value) {
             setState(() {
@@ -210,7 +210,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
         ),
         RadioListTile<String>(
           title: const Text('Low (test line lighter than control)'),
-          value: 'low',
+          value: 'پایین',
           groupValue: _lhResult,
           onChanged: (value) {
             setState(() {
@@ -220,7 +220,7 @@ class _LogDataScreenState extends State<LogDataScreen> {
         ),
         RadioListTile<String>(
           title: const Text('High (test line similar to control)'),
-          value: 'high',
+          value: 'بالا',
           groupValue: _lhResult,
           onChanged: (value) {
             setState(() {
@@ -229,8 +229,8 @@ class _LogDataScreenState extends State<LogDataScreen> {
           },
         ),
         RadioListTile<String>(
-          title: const Text('Peak (test line darker than control)'),
-          value: 'peak',
+          title: const Text('حداکثر (نتیجه تست از خط کنترل تیره تر میباشد)'),
+          value: 'حداکثر',
           groupValue: _lhResult,
           onChanged: (value) {
             setState(() {
